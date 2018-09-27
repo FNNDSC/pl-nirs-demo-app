@@ -6,7 +6,7 @@ WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
 RUN apt-get update && \
     apt-get install -y --no-install-recommends wget && \
-    wget -O - https://cmake.org/files/v3.12/cmake-3.12.2-Linux-x86_64.sh | bash && \
+    bash <(wget -O - https://cmake.org/files/v3.12/cmake-3.12.2-Linux-x86_64.sh) --skip-license && \
     cmake . && \
     make pymcx
 
