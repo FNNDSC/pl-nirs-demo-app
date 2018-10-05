@@ -6,7 +6,7 @@ WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
 RUN apt-get update && \
     apt-get install -y --no-install-recommends cmake && \
-    cmake . && \
+    cmake .. && \
     make pymcx
 
 FROM python:3-slim
