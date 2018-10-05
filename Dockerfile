@@ -5,7 +5,8 @@ FROM nvidia/cuda:9.2-devel-ubuntu18.04 as builder
 WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends cmake python3 python3-setuptools && \
+    apt-get install -y --no-install-recommends cmake python3 python3-pip && \
+    pip3 install setuptools wheel && \
     cmake .. && \
     make pymcx
 
