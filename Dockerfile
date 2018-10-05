@@ -1,12 +1,11 @@
 # Docker file for the nirs_demo_app plugin app
 
-FROM nvidia/cuda:9.1-devel as builder
+FROM nvidia/cuda:9.2-devel-ubuntu18.04 as builder
 
 WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget && \
-    bash <(wget -O - https://cmake.org/files/v3.12/cmake-3.12.2-Linux-x86_64.sh) --skip-license && \
+    apt-get install -y --no-install-recommends cmake && \
     cmake . && \
     make pymcx
 
