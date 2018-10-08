@@ -1,6 +1,6 @@
 # Docker file for the nirs_demo_app plugin app
 
-FROM nvidia/cuda:9.2-devel-ubuntu16.04 as builder
+FROM nvidia/cuda:9.0-devel-ubuntu16.04 as builder
 
 WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
