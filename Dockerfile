@@ -6,7 +6,9 @@ WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
 RUN apt-get update && \
     apt-get install -y --no-install-recommends wget python3 python3-pip && \
-    sh <(wget -qO- https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.sh) --skip-license && \
+    wget -q https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.sh  && \
+    sh cmake-3.12.3-Linux-x86_64.sh --skip-license --prefix=/opt/cmake && \
+    ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake && \
     pip3 install setuptools wheel && \
     cmake .. && \
     make pymcx
