@@ -24,8 +24,9 @@ COPY --from=builder ["/usr/src/mcx/build/pymcx", "${APPROOT}/pymcx"]
 
 WORKDIR $APPROOT
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libgomp1 && \
+RUN echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get -t experimental install -y --no-install-recommends libgomp1 libc6 && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm -rf /var/lib/apt/lists/*
 
