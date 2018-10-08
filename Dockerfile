@@ -1,16 +1,17 @@
 # Docker file for the nirs_demo_app plugin app
 
-FROM nvidia/cuda:9.2-devel-ubuntu18.04 as builder
+FROM nvidia/cuda:9.2-devel-ubuntu16.04 as builder
 
 WORKDIR /usr/src/mcx/build
 COPY ["mcx", "/usr/src/mcx"]
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends cmake python3 python3-pip && \
+    apt-get install -y --no-install-recommends wget python3 python3-pip && \
+    sh <(wget -qO- https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.sh) --skip-license && \
     pip3 install setuptools wheel && \
     cmake .. && \
     make pymcx
 
-FROM python:3.6-slim
+FROM python:3-slim
 MAINTAINER fnndsc "dev@babymri.org"
 
 LABEL com.nvidia.volumes.needed="nvidia_driver"
@@ -24,9 +25,8 @@ COPY --from=builder ["/usr/src/mcx/build/pymcx", "${APPROOT}/pymcx"]
 
 WORKDIR $APPROOT
 
-RUN echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get -t experimental install -y --no-install-recommends libgomp1 libc6 && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libgomp1 && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm -rf /var/lib/apt/lists/*
 
