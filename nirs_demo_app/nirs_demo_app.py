@@ -11,7 +11,6 @@
 import os
 import json
 import numpy as np
-import numba as nb
 import nibabel as nib
 from pymcx import MCX
 from chrisapp.base import ChrisApp
