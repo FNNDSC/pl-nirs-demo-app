@@ -42,7 +42,7 @@ LABEL com.nvidia.volumes.needed="nvidia_driver"
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
-ENV APPROOT="/usr/src/nirs_demo_app"  VERSION="0.1"
+ENV APPROOT="/usr/src/nirs_demo_app" 
 COPY ["nirs_demo_app", "${APPROOT}"]
 COPY ["requirements.txt", "${APPROOT}"]
 COPY --from=builder ["/usr/src/mcx/build/pymcx", "${APPROOT}/pymcx"]
